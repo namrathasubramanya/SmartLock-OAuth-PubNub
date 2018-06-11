@@ -3,7 +3,7 @@
   var startApp = function() {
     gapi.load('auth2', function(){
       auth2 = gapi.auth2.init({
-        client_id: '847313193028-13fa5gl5mumsj1b70d7gfcnu8okub1nf.apps.googleusercontent.com',
+        client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
         cookiepolicy: 'single_host_origin',
       });
       attachSignin(document.getElementById('customBtn'));
@@ -46,14 +46,14 @@
 				function validatePassword() {	
 
 					var xhr1 = new XMLHttpRequest();
-					var url ='https://pubsub.pubnub.com/v1/blocks/sub-key/sub-c-a1ad7926-5e0a-11e8-8ebf-f686a6d93a6b/users?id='+googleUser.getBasicProfile().getId()+'&password='+document.getElementById('password').value;
-					xhr1.open('GET', url);
+					var url ='COPY_YOUR_URL';
+					xhr1.open('POST', url);
 					xhr1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 					xhr1.onload = function() {
 						var pubnub = new PubNub({
-    						subscribeKey: 'sub-c-a1ad7926-5e0a-11e8-8ebf-f686a6d93a6b',
-    						publishKey: 'pub-c-563cbabc-a399-4a76-830a-468a698efd4d',
-    						secretKey: 'sec-c-MzAwZGRhMmUtZjEyNC00MzZjLWE3NmMtYjhhNDlmMGJjOWI0'
+    						subscribeKey: 'Enter your subscribe key here',
+    						publishKey: 'Enter your publish key here',
+    						secretKey: 'Enter your secret key here'
   						});
 						pubnub.grant({
         					channels: ["Raspberry"],
@@ -70,7 +70,7 @@
   						else if(xhr1.responseText.trim() == "ACCOUNT DOES NOT EXIST")
   							window.open('/invalidkey.html','_self');
 					};
-					xhr1.send();
+					xhr1.send('id='+googleUser.getBasicProfile().getId()+'&password='+document.getElementById('password').value);
 		          	 document.getElementById('done').style.display = "none";
 		             document.getElementById('password').style.display = "none";
 		             document.getElementById('passwordlabel').style.display = "none";
